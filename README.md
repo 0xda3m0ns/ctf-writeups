@@ -65,4 +65,4 @@ Techniques demonstrated here should only be used against systems you have permis
 
 ---
 
-*explore, get lost, find your way back, learn, grow, repeat*
+*explore, get lost, find your way back, learn, grow, repeat.*
