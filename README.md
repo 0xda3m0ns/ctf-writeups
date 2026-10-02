@@ -17,13 +17,12 @@ Some writeups are detailed walkthroughs, while others are more like notes on wha
 
 ## CTFs
 
-<!-- | CTF      | Year | Categories    | -->
-<!-- | -------- | ---- | ------------- | -->
-<!-- | Compfest | 2026 | Pwn           | -->
-<!-- | Gemastik | 2026 | Pwn           | -->
-<!-- | ARA-ITS  | 2026 | Pwn           | -->
-<!-- | CBD      | 2026 | Pwn           | -->
-<!-- <!----> -->
+| CTF      | Year | Categories    |
+| -------- | ---- | ------------- |
+| Compfest | 2026 | Pwn           |
+| Gemastik | 2026 | Pwn           |
+| ARA-ITS  | 2026 | Pwn           |
+| CBD      | 2026 | Pwn           |
 
 > This list will grow as I keep solving things.
 
