@@ -127,9 +127,9 @@ So the win condition is simple: **make `[rbp-0x10] == 0xc0ffee` at the time of t
 
 >### Finding the offset (and fixing the writeup's own mistake)
 
-The original approach in this writeup was to throw a **cyclic pattern** at the input, crash the program, and read the offset off a corrupted `$rsp` / return address,  the standard method for finding the offset to **the saved return address**. That gave an offset of **56**.
+The important offset here is not the distance to the saved return address, but the distance to the local variable used by the cmp instruction.
 
-That number is correct for what it measures, but it's measuring the wrong target. 56 bytes is the distance from the start of the buffer to the **saved RIP** on the stack (`buffer start -> saved RBP -> saved RIP`), not to `[rbp-0x10]`. Since this challenge never needs RIP control, chasing that offset was unnecessary, and using it in the exploit would've landed `0xc0ffee` eight bytes into the return address instead of into the check variable, which wouldn't satisfy the `cmp` at all.
+From the stack layout, the input buffer starts at `[rbp-0x30]`, while the variable being checked is located at `[rbp-0x10]`:
 
 The actual offset doesn't need a cyclic pattern, it's sitting right there in the disassembly:
 
@@ -140,13 +140,20 @@ target var   : [rbp-0x10]
 offset = (rbp-0x10) - (rbp-0x30) = 0x30 - 0x10 = 0x20 = 32 bytes
 ```
 
-So the correct payload is:
+So the payload needs 32 bytes of padding before writing the target value:
 
 ```
-32 bytes of padding  +  p64(0xc0ffee)
+payload = b"A" * 32
+payload += p64(0xc0ffee)
 ```
 
-This is exactly what `offset = 32` in the solver does. It's right, but the writeup's narrative leading up to it (cyclic pattern -> 56) was solving for a different, irrelevant offset. Worth remembering for future challenges: **cyclic pattern + `$rsp` inspection finds the offset to the saved return address specifically.** If the thing you actually need to overwrite is some other local variable sitting between the buffer and the saved RBP, compute that offset directly from the stack frame layout instead. It'll usually be smaller, and a cyclic pattern will actively mislead you if you don't know which distance it's telling you.
+This places 0xc0ffee directly into the variable at `[rbp-0x10]`, allowing the subsequent comparison to succeed:
+
+```
+cmp rax, 0xc0ffee
+```
+
+The key point is that the required offset depends on what the exploit needs to overwrite. Since this challenge only requires modifying a local variable and does not require control over the saved return address, the relevant offset is 32 bytes.
 
 >### Exploit
 
