@@ -10,7 +10,9 @@
 
 We're given a 64-bit ELF binary named `be2`:
 ```
-be2: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=709b7ce4c2a63e7fd8d3ee676f7a7bd9eca3b215, for GNU/Linux 3.2.0, not stripped
+be2: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, 
+interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=709b7ce4c2a63e7fd8d3ee676f7a7bd9eca3b215, 
+for GNU/Linux 3.2.0, not stripped
 ```
 
 >### Protections
