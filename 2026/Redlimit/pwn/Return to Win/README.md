@@ -118,7 +118,8 @@ if __name__ == "__main__":
 
 After we running the solver, we got the flag
 
-![[Pasted image 20261003163953.png]]
+<img width="757" height="225" alt="image" src="https://github.com/user-attachments/assets/6d93ce64-84e2-490c-b3e1-7a2a51b8f08c" />
+
 
 >### Flag
 
