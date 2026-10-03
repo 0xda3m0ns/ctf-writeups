@@ -187,7 +187,7 @@ if __name__ == "__main__":
     main()
 ```
 
-![[Pasted image 20261002203235.png]]
+<img width="647" height="204" alt="image" src="https://github.com/user-attachments/assets/2babaf67-a0a3-494c-9ba6-1c48b194bb60" />
 
 >### Flag
 
