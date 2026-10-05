@@ -105,4 +105,6 @@ The leak position and the exact code offset represented by `%42$p` should be con
 The challenge ended some time ago, and I only got around to writing this writeup now. The server no longer returns the flag.
 
 >### Flag
+```text
 ARA{th3_ch4ll3nge_1s__3nded}
+```
