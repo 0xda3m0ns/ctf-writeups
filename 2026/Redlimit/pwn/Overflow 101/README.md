@@ -1,4 +1,4 @@
-## Overflow 101 - pwn
+# Overflow 101 - pwn
 
 >## Description
 >Input panjang menimpa variabel lalu flag tercetak.
@@ -199,5 +199,5 @@ if __name__ == "__main__":
 >### Flag
 
 ```
-REDLIMIT{try_1n_y0ur_m4ch1n3}
+REDLIMIT{redacted_challenge_still_alive}
 ```
