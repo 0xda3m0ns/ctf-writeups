@@ -106,5 +106,5 @@ The challenge ended some time ago, and I only got around to writing this writeup
 
 >### Flag
 ```text
-ARA{th3_ch4ll3nge_1s__3nded}
+ARA{th3_ch4ll3nge_1s_3nded}
 ```
