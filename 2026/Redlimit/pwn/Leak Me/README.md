@@ -384,7 +384,7 @@ if __name__ == "__main__":
 
 Running the solver gives:
 
-<placeholder for screenshot>
+<img width="1046" height="161" alt="image" src="https://github.com/user-attachments/assets/cd112b34-e2af-4d83-a894-2f2a17ff80d4" />
 
 ## Flag
 
