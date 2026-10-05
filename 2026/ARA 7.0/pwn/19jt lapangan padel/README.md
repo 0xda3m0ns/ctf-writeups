@@ -1,8 +1,4 @@
-## Return to Win - pwn
-
->## Description
->There is a function in the binary that is never called. Overwrite the return address so execution reaches it.
-
+## 19jt lapangan padel
 ---
 
 >## Initial Analysis
