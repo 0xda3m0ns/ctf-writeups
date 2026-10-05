@@ -124,5 +124,5 @@ After we running the solver, we got the flag
 >### Flag
 
 ```
-REDLIMIT{try_1n_y0ur_m4ch1n3}
+REDLIMIT{redacted_challenge_still_live}
 ```
