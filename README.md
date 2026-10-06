@@ -9,11 +9,6 @@ Some writeups are detailed walkthroughs, while others are more like notes on wha
 ## Categories
 
 * **Pwn** — buffer overflows, ROP, heap exploitation, format strings, and other binary exploitation techniques
-* **Web** — authentication, access control, server-side vulnerabilities, and web exploitation
-* **Reverse Engineering** — binary analysis, debugging, and program behavior
-* **Crypto** — cryptographic vulnerabilities and challenges
-* **Forensics** — file analysis, memory, network, and artifact investigation
-* **Misc** — challenges that don't fit neatly into the categories above
 
 ## CTFs
 
