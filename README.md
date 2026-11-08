@@ -12,11 +12,11 @@ Some writeups are detailed walkthroughs, while others are more like notes on wha
 
 ## CTFs
 
-| CTF      | Year | Categories    |
-| -------- | ---- | ------------- |
-| ARA-ITS  | 2026 | Pwn           |
-| REDLIMIT | 2026 | Pwn           |
-| TRYHARDS | 2026 | Pwn           |
+| CTF      | Year | Categories               |
+| -------- | ---- | -------------------------|
+| ARA-ITS  | 2026 | pwn                      |
+| REDLIMIT | 2026 | pwn                      |
+| TRYHARDS | 2026 | pwn & reverse engineering|
 
 > This list will grow as I keep solving things.
 
