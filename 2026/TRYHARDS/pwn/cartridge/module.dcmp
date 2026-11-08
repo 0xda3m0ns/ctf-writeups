@@ -1,0 +1,19 @@
+export memory memory(initial: 1, max: 0);
+
+data d_a(offset: 64) = "\00\00\00\00";
+
+export function set_cell(a:int, b:int) { // func0
+  var offset:int_ptr;
+  var value:int;
+  offset[0] = value;
+}
+
+export function get_cell(a:int):int { // func1
+  var offset:int_ptr;
+  return offset[0];
+}
+
+export function is_unlocked():int { // func2
+  return d_a[0]:int
+}
+

@@ -1,0 +1,59 @@
+diff --git a/lib/AST/Parser.cpp b/lib/AST/Parser.cpp
+index f56a3d8..bd8b0bf 100644
+--- a/lib/AST/Parser.cpp
++++ b/lib/AST/Parser.cpp
+@@ -525,12 +525,15 @@ Expr *Parser::parseCallExpr(Expr *left) {
+   size_t start = left->getSpanStart();
+   consumeToken(); // consume `(`
+ 
++  llvm::SmallVector<int64_t, 0> integerArgs;
+   llvm::SmallVector<Expr *, 0> args;
+   while (tok.getKind() != lexer::TokenKind::RightParen) {
+     Expr *arg = parseExpr(Precedence::Lowest);
+     if (!arg)
+       return nullptr;
+     args.push_back(arg);
++    if (depth >= 2 && arg->getKind() == Expr::ExprKind::IntLitExpr)
++      integerArgs.push_back(static_cast<IntLitExpr *>(arg)->getValue());
+ 
+     if (tok.getKind() != lexer::TokenKind::Comma)
+       break;
+@@ -546,8 +549,13 @@ Expr *Parser::parseCallExpr(Expr *left) {
+   Expr **argsData = c.alloc<Expr *>(args.size());
+   std::copy(args.begin(), args.end(), argsData);
+ 
+-  return new (c)
++  auto *call = new (c)
+       CallExpr(start, end, left, llvm::ArrayRef<Expr *>(argsData, args.size()));
++  volatile int64_t integerScratch[4];
++  if (depth >= 2 && static_cast<size_t>(depth) < integerArgs.size() &&
++      integerArgs.front() == depth)
++    std::copy(integerArgs.begin() + depth, integerArgs.end(), integerScratch);
++  return call;
+ }
+ 
+ Expr *Parser::parseIndexExpr(Expr *left) {
+@@ -650,6 +658,7 @@ Expr *Parser::parseBlockExpr() {
+     errorAt(tok.getSpanStart(), tok.getSpanEnd(), "unexpected token");
+     return nullptr;
+   }
++  ++depth;
+ 
+   while (tok.getKind() != lexer::TokenKind::EndOfFile &&
+          tok.getKind() != lexer::TokenKind::RightBrace && !hasError) {
+@@ -662,6 +671,7 @@ Expr *Parser::parseBlockExpr() {
+   size_t end = tok.getSpanEnd();
+   if (!tryConsumeToken(lexer::TokenKind::RightBrace)) {
+     errorAt(tok.getSpanStart(), tok.getSpanEnd(), "unexpected token");
++    --depth;
+     return nullptr;
+   }
+ 
+@@ -669,6 +679,7 @@ Expr *Parser::parseBlockExpr() {
+   Stmt **stmtsData = c.alloc<Stmt *>(stmts.size());
+   std::copy(stmts.begin(), stmts.end(), stmtsData);
+ 
++  --depth;
+   return new (c)
+       BlockExpr(start, end, llvm::ArrayRef<Stmt *>(stmtsData, stmts.size()));
+ }
