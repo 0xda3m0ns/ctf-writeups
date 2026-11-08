@@ -17,7 +17,7 @@ The binary maintains a global array of ten entry pointers. Creating an entry all
 
 ### Protections
 
-```
+```bash
 Arch:       amd64 (x86-64)
 PIE:        Enabled
 Canary:     Not present
@@ -30,7 +30,7 @@ Full RELRO makes GOT overwrites unavailable, but is not needed here: the vulnera
 
 Useful symbol offsets from this binary:
 
-```
+```bash
 get_secret    0x1209
 entry_printer 0x1294
 write_entry   0x136c
